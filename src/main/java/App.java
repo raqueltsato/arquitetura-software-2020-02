@@ -4,6 +4,19 @@ public class App {
     private static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
+        App app = new App();
+        Solo solo = new Solo();
+        Solo valorIdealSolo = new Solo();
+        solo = app.recebeSolo();
+        valorIdealSolo = solo.verificaValorIdeal();
+        app.imprimeTabela(solo, valorIdealSolo);
+
+
+
+    }
+
+    private Solo recebeSolo (){
+
         Solo solo = new Solo();
         Solo valorIdealSolo = new Solo();
         String textura;
@@ -37,32 +50,7 @@ public class App {
         System.out.println("\nDigite o valor do H+Al");
         solo.setHal(Double.parseDouble(scan.nextLine()));
 
-        valorIdealSolo = solo.verificaValorIdeal();
-
-        System.out.println("\n------------ TABELA DE VALORES-------------");
-        System.out.println("\n          VALOR COLETADO          VALOR IDEAL");
-        System.out.println("Fosforo:     "+solo.getFosforo()+"                     "+ valorIdealSolo.getFosforo()+"\n");
-        System.out.println("Potássio:    "+solo.getPotassio()+"                     "+ valorIdealSolo.getPotassio()+"\n");
-        System.out.println("Cálcio:      "+solo.getCalcio()+"                     "+ valorIdealSolo.getCalcio()+"\n");
-        System.out.println("Magnésio:    "+solo.getMagnesio()+"                     "+ valorIdealSolo.getMagnesio()+"\n");
-        System.out.println("Enxofre:     "+solo.getEnxofre()+"                     "+ valorIdealSolo.getEnxofre()+"\n");
-        System.out.println("Alumínio:    "+solo.getAluminio()+"                      "+ valorIdealSolo.getAluminio()+"\n");
-        System.out.println("H+Al:        "+solo.getHal()+"                     "+ valorIdealSolo.getHal()+"\n");
-        System.out.println("\n--------------------------------------------\n");
-        System.out.println("SCmol:       "+ scmolCalc(solo));
-        System.out.println("CTCCmol:     "+ ctcCmolCalc(solo));
-        System.out.println("V % Atual:   "+ vAtualCalc(solo));
-
-        System.out.println("\n--------------------------------------------\n");
-        System.out.println("\n-------------- APÓS CORREÇÃO---------------");
-        System.out.println("Fósforo após correção:        "+  fosforoAposCorrecao());
-        System.out.println("\n--------------------------------------------\n");
-        System.out.println("Potássio após correção:       "+  potassioAposCorrecao(solo));
-
-
-
-
-
+        return solo;
     }
 
     private static void imprimeTextura(String textura) {
@@ -113,6 +101,31 @@ public class App {
         System.out.println("Digite o valor do potassio desejado para a correção de solo:");
         valorDesejado = (Double.parseDouble(scan.nextLine()));
         return (solo.getPotassio()*valorDesejado)/(solo.getPotassio()/ctcCmolCalc(solo)*100) - solo.getPotassio();
+    }
+
+    private void imprimeTabela (Solo solo, Solo valorIdealSolo){
+
+        System.out.println("\n------------ TABELA DE VALORES-------------");
+        System.out.println("\n          VALOR COLETADO          VALOR IDEAL");
+        System.out.println("Fosforo:     "+solo.getFosforo()+"                     "+ valorIdealSolo.getFosforo()+"\n");
+        System.out.println("Potássio:    "+solo.getPotassio()+"                     "+ valorIdealSolo.getPotassio()+"\n");
+        System.out.println("Cálcio:      "+solo.getCalcio()+"                     "+ valorIdealSolo.getCalcio()+"\n");
+        System.out.println("Magnésio:    "+solo.getMagnesio()+"                     "+ valorIdealSolo.getMagnesio()+"\n");
+        System.out.println("Enxofre:     "+solo.getEnxofre()+"                     "+ valorIdealSolo.getEnxofre()+"\n");
+        System.out.println("Alumínio:    "+solo.getAluminio()+"                      "+ valorIdealSolo.getAluminio()+"\n");
+        System.out.println("H+Al:        "+solo.getHal()+"                     "+ valorIdealSolo.getHal()+"\n");
+        System.out.println("\n--------------------------------------------\n");
+        System.out.println("SCmol:       "+ scmolCalc(solo));
+        System.out.println("CTCCmol:     "+ ctcCmolCalc(solo));
+        System.out.println("V % Atual:   "+ vAtualCalc(solo));
+
+        System.out.println("\n--------------------------------------------\n");
+        System.out.println("\n-------------- APÓS CORREÇÃO---------------");
+        System.out.println("Fósforo após correção:        "+  fosforoAposCorrecao());
+        System.out.println("\n--------------------------------------------\n");
+        System.out.println("Potássio após correção:       "+  potassioAposCorrecao(solo));
+
+
     }
 
 
