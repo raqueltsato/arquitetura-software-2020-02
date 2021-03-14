@@ -1,14 +1,14 @@
 public class Solo {
 
 
-    String textura;
-    double fosforo;
-    double potassio;
-    double calcio;
-    double magnesio;
-    double enxofre;
-    double aluminio;
-    double hal;
+    private String textura;
+    private double fosforo;
+    private double potassio;
+    private double calcio;
+    private double magnesio;
+    private double enxofre;
+    private double aluminio;
+    private double hal;
 
     public double getFosforo() {
         return fosforo;
