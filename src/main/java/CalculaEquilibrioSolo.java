@@ -141,7 +141,10 @@ public class CalculaEquilibrioSolo {
         return opcao;
     }
     private double calculaQuantidadeFosforoAAplicar(Solo solo, double fosforoAAtingir, double valorDaFonte) {
-        double primeiroValor = ((((fosforoAAtingir - solo.getFosforo())*2 * 2.29 * 100)/0.70)/100)*100;
+        System.out.println("Digite a eficiência do fósforo em porcentagem");
+        double eficiencia = (Double.parseDouble(scan.nextLine()));
+        eficiencia = eficiencia/100;
+        double primeiroValor = ((((fosforoAAtingir - solo.getFosforo())*2 * 2.29 * 100)/eficiencia)/100)*100;
         double quantidadeAAplicar = primeiroValor/valorDaFonte;
 
         return quantidadeAAplicar;
