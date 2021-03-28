@@ -14,10 +14,9 @@ public class App {
 
         memoriaDeCalculo.imprimeTabela(solo, valorIdealSolo, scmol, ctcCmol, vPercentual, moPercentual, carbono);
 
-        double fosfatoAAplicar = memoriaDeCalculo.quantidadeAplicarFosforo(solo);
-        System.out.println("Quantidade de Fosfato a aplicar: " +fosfatoAAplicar+ " kg/hectare");
-
-
+        double fosforoAAplicar = memoriaDeCalculo.calculaQuantidadeAplicarFosforo(solo);
+        double custoDoFosforo = memoriaDeCalculo.calculaCustoDoFosforo(fosforoAAplicar);
+        memoriaDeCalculo.imprimeCorrecaoDoFosforo(fosforoAAplicar, custoDoFosforo);
     }
 
 

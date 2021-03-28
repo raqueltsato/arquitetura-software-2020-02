@@ -109,13 +109,12 @@ public class CalculaEquilibrioSolo {
             System.out.printf("SOLO TEXTURA MÉDIA\n");
         }
     }
-
-    public double quantidadeAplicarFosforo(Solo solo) {
+    public double calculaQuantidadeAplicarFosforo(Solo solo) {
         System.out.println("Digite o teor de fósforo a atingir");
         double fosforoaAtingir = (Double.parseDouble(scan.nextLine()));
         String fonteDeFosforo = fonteDeFosforo();
         double valorDaFonte = getFonteValor(fonteDeFosforo);
-        double resultado = calculaQuantidadeFosforoAAplicar(solo, fosforoaAtingir, valorDaFonte);
+        double resultado = calculoDeQuantidadeFosforoAAplicar(solo, fosforoaAtingir, valorDaFonte);
 
         return resultado;
 
@@ -140,7 +139,7 @@ public class CalculaEquilibrioSolo {
 
         return opcao;
     }
-    private double calculaQuantidadeFosforoAAplicar(Solo solo, double fosforoAAtingir, double valorDaFonte) {
+    private double calculoDeQuantidadeFosforoAAplicar(Solo solo, double fosforoAAtingir, double valorDaFonte) {
         System.out.println("Digite a eficiência do fósforo em porcentagem");
         double eficiencia = (Double.parseDouble(scan.nextLine()));
         eficiencia = eficiencia/100;
@@ -150,7 +149,7 @@ public class CalculaEquilibrioSolo {
         return quantidadeAAplicar;
     }
 
-    public double getFonteValor(String fonteDeFosforo) {
+    private double getFonteValor(String fonteDeFosforo) {
 
         FonteDeFosforo fonte = null;
         switch (fonteDeFosforo) {
@@ -193,6 +192,18 @@ public class CalculaEquilibrioSolo {
 
         }
         return fonte.getValor();
+    }
+
+    public double calculaCustoDoFosforo(double fosforoAAplicar){
+        System.out.println("Digite o valor da Tonelada do Fósforo");
+        double preco = (Double.parseDouble(scan.nextLine()));
+
+        return (((fosforoAAplicar*2.42)/1000) * preco) / 2.42;
+    }
+
+    public void imprimeCorrecaoDoFosforo(double fosforoAAplicar, double custoDoFosforo){
+        System.out.println("Quantidade de Fosfato a aplicar:           "+fosforoAAplicar+ " kg/hectare");
+        System.out.println("O custo é de:                              R$ " +custoDoFosforo+" /ha");
     }
 
 }
