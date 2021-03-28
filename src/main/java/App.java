@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class App {
 
     public static void main(String[] args) {
@@ -17,7 +19,12 @@ public class App {
         double fosforoAAplicar = memoriaDeCalculo.calculaQuantidadeAplicarFosforo(solo);
         double custoDoFosforo = memoriaDeCalculo.calculaCustoDoFosforo(fosforoAAplicar);
         memoriaDeCalculo.imprimeCorrecaoDoFosforo(fosforoAAplicar, custoDoFosforo);
+        ArrayList<Double> potassio = memoriaDeCalculo.calculaQuantidadeAplicarPotassio(solo, ctcCmol);
+        memoriaDeCalculo.imprimePotassio(potassio);
+
     }
+
+
 
 
 }

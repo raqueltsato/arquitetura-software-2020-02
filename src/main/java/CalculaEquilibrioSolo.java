@@ -1,21 +1,22 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CalculaEquilibrioSolo {
     public static Scanner scan = new Scanner(System.in);
 
-    double calculaSCmol(Solo solo) {
+    public double calculaSCmol(Solo solo) {
         return solo.getPotassio()+solo.getCalcio()+solo.getMagnesio();
     }
 
-    double calculaCTCCmol(Solo solo) {
-        return solo.getPotassio()+solo.getCalcio()+solo.getMagnesio()+solo.getHal();
+    public double calculaCTCCmol(Solo solo) {
+        return calculaSCmol(solo)+solo.getHal();
     }
 
-    double calculaVPercentual(Solo solo) {
+    public double calculaVPercentual(Solo solo) {
         return 100 * calculaSCmol(solo)/calculaCTCCmol(solo);
     }
 
-    double calculaMOPercentual(double mo) {
+    public double calculaMOPercentual(double mo) {
         if (mo > 0) {
             return mo / 10;
 
@@ -24,7 +25,7 @@ public class CalculaEquilibrioSolo {
         }
     }
 
-    double calculaCarbono(double moPercentual) {
+    public double calculaCarbono(double moPercentual) {
 
         if (moPercentual > 0) {
             return moPercentual / 1.72 * 10;
@@ -109,6 +110,7 @@ public class CalculaEquilibrioSolo {
             System.out.printf("SOLO TEXTURA MÉDIA\n");
         }
     }
+
     public double calculaQuantidadeAplicarFosforo(Solo solo) {
         System.out.println("Digite o teor de fósforo a atingir");
         double fosforoaAtingir = (Double.parseDouble(scan.nextLine()));
@@ -206,4 +208,95 @@ public class CalculaEquilibrioSolo {
         System.out.println("O custo é de:                              R$ " +custoDoFosforo+" /ha");
     }
 
+    public ArrayList<Double> calculaQuantidadeAplicarPotassio(Solo solo, double ctcCmol){
+        System.out.println("Digite a participação do potassio na CTC desejada");
+        double potassioDesejado = (Double.parseDouble(scan.nextLine()));
+        String fontePotassio = fonteDePotassio();
+        double fonte = getFonteValorPotassio(fontePotassio);
+        double valorDoPotassio = calculoPotassio(solo, potassioDesejado, ctcCmol, fonte);
+        ArrayList<Double> nutrientes = new ArrayList<Double>();
+        nutrientes = verificaNutrientes(fontePotassio, valorDoPotassio);
+        nutrientes.add(valorDoPotassio);
+
+        return nutrientes;
+    }
+    private double calculoPotassio(Solo solo, double potassioDesejado, double ctcCmol, double fonte) {
+        double potassio = solo.getPotassio() * potassioDesejado;
+        double resultado1 = solo.getPotassio()/ctcCmol*100;
+        double primeiroResultadoDoCalculo = ((potassio/resultado1)-solo.getPotassio())*39.1*10*2*1.2*100;
+
+        return primeiroResultadoDoCalculo/0.85/100*100/fonte;
+
+    }
+
+    private ArrayList<Double> verificaNutrientes (String fontePotassio, double valorDoPotassio) {
+        ArrayList<Double> enxofreMagnesio = new ArrayList<Double>();
+
+        switch (fontePotassio) {
+            case "2":
+                enxofreMagnesio.add(valorDoPotassio*0.17);
+                break;
+            case "3":
+                enxofreMagnesio.add(valorDoPotassio*0.22);
+                enxofreMagnesio.add(valorDoPotassio*0.18);
+                break;
+            default:
+                break;
+        }
+
+        return enxofreMagnesio;
+
+    }
+
+    private String fonteDePotassio(){
+        System.out.println("Digite a fonte de potássio");
+        System.out.println("1 – Cloreto de Potássio");
+        System.out.println("2 - Sulfato de Potássio");
+        System.out.println("3 – Sulf.Potássio/Mag.");
+        System.out.println("4 – Outra opção");
+        String opcao = scan.nextLine();
+
+
+        return opcao;
+    }
+
+
+    private double getFonteValorPotassio(String fonteDePotassio) {
+
+        FonteDePotassio fonte = null;
+        switch (fonteDePotassio) {
+            case "1":
+                fonte = FonteDePotassio.A;
+                break;
+            case "2":
+                fonte = FonteDePotassio.B;
+                break;
+            case "3":
+                fonte = FonteDePotassio.C;
+                break;
+            case "4":
+                fonte = FonteDePotassio.D;
+                break;
+
+        }
+        return fonte.getValor();
+    }
+    public void imprimePotassio(ArrayList<Double> potassio) {
+        int tamanhoArray = potassio.size();
+        switch (tamanhoArray){
+            case 1:
+                System.out.println("Quantidade a aplicar de potassio:   "+ potassio.get(0));
+                break;
+            case 2:
+                System.out.println("Essa fonte oferece "+ potassio.get(0) + " kg/ha de enxofre\n");
+                System.out.println("Quantidade a aplicar de potassio:   "+potassio.get(1));
+                break;
+            case 3:
+                System.out.println("Quantidade a aplicar de potassio:   "+potassio.get(2));
+                System.out.println("Essa fonte oferece "+potassio.get(0)+ " kg/ha de enxofre");
+                System.out.println("Essa fonte oferece "+potassio.get(1)+" kg/ha de magnésio");
+                break;
+
+        }
+    }
 }
