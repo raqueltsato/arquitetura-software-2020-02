@@ -110,4 +110,86 @@ public class CalculaEquilibrioSolo {
         }
     }
 
+    public double quantidadeAplicarFosforo(Solo solo) {
+        System.out.println("Digite o teor de fósforo a atingir");
+        double fosforoaAtingir = (Double.parseDouble(scan.nextLine()));
+        String fonteDeFosforo = fonteDeFosforo();
+        double valorDaFonte = getFonteValor(fonteDeFosforo);
+        double resultado = calculaQuantidadeFosforoAAplicar(solo, fosforoaAtingir, valorDaFonte);
+
+        return resultado;
+
+    }
+
+    private String fonteDeFosforo(){
+        System.out.println("Digite a fonte de fósforo");
+        System.out.println("1 – Superfosfato Simples");
+        System.out.println("2 – Superfosfato Triplo");
+        System.out.println("3 – MAP");
+        System.out.println("4 – DAP");
+        System.out.println("5 – Yoorin");
+        System.out.println("6 – Fosfato  Arad");
+        System.out.println("7 – Fosfato  Gafsa");
+        System.out.println("8 – Fosfato  Daoui");
+        System.out.println("9 - Fosf.  Patos Minas");
+        System.out.println("10 – Escória de Thomas");
+        System.out.println("11 – Ácido Fosfórico ");
+        System.out.println("12 – Multif.Magnesiano");
+        String opcao = scan.nextLine();
+
+
+        return opcao;
+    }
+    private double calculaQuantidadeFosforoAAplicar(Solo solo, double fosforoAAtingir, double valorDaFonte) {
+        double primeiroValor = ((((fosforoAAtingir - solo.getFosforo())*2 * 2.29 * 100)/0.70)/100)*100;
+        double quantidadeAAplicar = primeiroValor/valorDaFonte;
+
+        return quantidadeAAplicar;
+    }
+
+    public double getFonteValor(String fonteDeFosforo) {
+
+        FonteDeFosforo fonte = null;
+        switch (fonteDeFosforo) {
+            case "1":
+                fonte = FonteDeFosforo.A;
+                break;
+            case "2":
+                fonte = FonteDeFosforo.B;
+                break;
+            case "3":
+                fonte = FonteDeFosforo.C;
+                break;
+            case "4":
+                fonte = FonteDeFosforo.D;
+                break;
+            case "5":
+                fonte = FonteDeFosforo.E;
+                break;
+            case "6":
+                fonte = FonteDeFosforo.F;
+                break;
+            case "7":
+                fonte = FonteDeFosforo.G;
+                break;
+            case "8":
+                fonte = FonteDeFosforo.H;
+                break;
+            case "9":
+                fonte = FonteDeFosforo.I;
+                break;
+            case "10":
+                fonte = FonteDeFosforo.J;
+                break;
+            case "11":
+                fonte = FonteDeFosforo.K;
+                break;
+            case "12":
+                fonte = FonteDeFosforo.L;
+                break;
+
+        }
+        return fonte.getValor();
+    }
+
 }
