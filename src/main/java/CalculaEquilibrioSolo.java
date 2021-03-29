@@ -213,10 +213,12 @@ public class CalculaEquilibrioSolo {
         double potassioDesejado = (Double.parseDouble(scan.nextLine()));
         String fontePotassio = fonteDePotassio();
         double fonte = getFonteValorPotassio(fontePotassio);
-        double valorDoPotassio = calculoPotassio(solo, potassioDesejado, ctcCmol, fonte);
+        double quantidadeDoPotassio = calculoPotassio(solo, potassioDesejado, ctcCmol, fonte);
         ArrayList<Double> nutrientes = new ArrayList<Double>();
-        nutrientes = verificaNutrientes(fontePotassio, valorDoPotassio);
-        nutrientes.add(valorDoPotassio);
+        nutrientes = verificaNutrientes(fontePotassio, quantidadeDoPotassio);
+        double custoDoPotassio = calculaCustoDoPotassio(quantidadeDoPotassio, fontePotassio);
+        nutrientes.add(quantidadeDoPotassio);
+        nutrientes.add(custoDoPotassio);
 
         return nutrientes;
     }
@@ -284,19 +286,37 @@ public class CalculaEquilibrioSolo {
     public void imprimePotassio(ArrayList<Double> potassio) {
         int tamanhoArray = potassio.size();
         switch (tamanhoArray){
-            case 1:
-                System.out.println("Quantidade a aplicar de potassio:   "+ potassio.get(0));
-                break;
             case 2:
-                System.out.println("Essa fonte oferece "+ potassio.get(0) + " kg/ha de enxofre\n");
-                System.out.println("Quantidade a aplicar de potassio:   "+potassio.get(1));
+                System.out.println("Quantidade a aplicar de potassio:   "+ potassio.get(0));
+                System.out.println("Custo R$/ha do potassio:   "+ potassio.get(1));
                 break;
             case 3:
+                System.out.println("Essa fonte oferece "+ potassio.get(0) + " kg/ha de enxofre\n");
+                System.out.println("Quantidade a aplicar de potassio:   "+potassio.get(1));
+                System.out.println("Custo R$/ha do potassio:   "+ potassio.get(2));
+                break;
+            case 4:
                 System.out.println("Quantidade a aplicar de potassio:   "+potassio.get(2));
+                System.out.println("Custo R$/ha do potassio:   "+ potassio.get(3));
                 System.out.println("Essa fonte oferece "+potassio.get(0)+ " kg/ha de enxofre");
                 System.out.println("Essa fonte oferece "+potassio.get(1)+" kg/ha de magnésio");
                 break;
 
         }
     }
+
+    public double calculaCustoDoPotassio(double valorDoPotassio, String fonteDoPotassio) {
+        if (!fonteDoPotassio.equals("4")){
+            return (valorDoPotassio * 2.42) /1000 * recebePrecoDoPotassio()/2.42;
+        }
+        return 0.0;
+    }
+
+    private double recebePrecoDoPotassio(){
+        System.out.println("Digite o preço do potássio:");
+        double precoDoPotassio = (Double.parseDouble(scan.nextLine()));
+
+        return precoDoPotassio;
+    }
+
 }
