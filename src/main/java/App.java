@@ -16,9 +16,8 @@ public class App {
 
         memoriaDeCalculo.imprimeTabela(solo, valorIdealSolo, scmol, ctcCmol, vPercentual, moPercentual, carbono);
 
-        double fosforoAAplicar = memoriaDeCalculo.calculaQuantidadeAplicarFosforo(solo);
-        double custoDoFosforo = memoriaDeCalculo.calculaCustoDoFosforo(fosforoAAplicar);
-        memoriaDeCalculo.imprimeCorrecaoDoFosforo(fosforoAAplicar, custoDoFosforo);
+        memoriaDeCalculo.recebeDadosParaRecuperacaoDoFosforo(solo);
+
         ArrayList<Double> potassio = memoriaDeCalculo.calculaQuantidadeAplicarPotassio(solo, ctcCmol);
         memoriaDeCalculo.imprimePotassio(potassio);
 

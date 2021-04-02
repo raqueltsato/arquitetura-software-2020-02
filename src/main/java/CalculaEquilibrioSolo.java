@@ -111,16 +111,25 @@ public class CalculaEquilibrioSolo {
         }
     }
 
-    public double calculaQuantidadeAplicarFosforo(Solo solo) {
-        System.out.println("Digite o teor de fósforo a atingir");
-        double fosforoaAtingir = (Double.parseDouble(scan.nextLine()));
-        String fonteDeFosforo = fonteDeFosforo();
-        double valorDaFonte = getFonteValor(fonteDeFosforo);
-        double resultado = calculoDeQuantidadeFosforoAAplicar(solo, fosforoaAtingir, valorDaFonte);
 
-        return resultado;
+    public void recebeDadosParaRecuperacaoDoFosforo(Solo solo) {
+        double fosforoAAtingir = recebeTeorDoFosforoAAtingir();
+        String fonteDoFosforo = fonteDeFosforo();
+        double eficienciaDoFosforo = recebeEficienciaDoFosforo();
+        double quantidadeAplicar = calculoDeQuantidadeFosforoAAplicar(solo.getFosforo(), fosforoAAtingir, eficienciaDoFosforo, fonteDoFosforo);
+        double precoDaTonelada = recebeValorDaToneladaDoFosforo();
+        double custoDoFosforo = calculaCustoDoFosforo(quantidadeAplicar, precoDaTonelada);
+        imprimeCorrecaoDoFosforo(quantidadeAplicar, custoDoFosforo);
 
     }
+
+    public double recebeTeorDoFosforoAAtingir() {
+        System.out.println("Digite o teor de fósforo a atingir");
+        double fosforoAtingir = (Double.parseDouble(scan.nextLine()));
+
+        return fosforoAtingir;
+    }
+
 
     private String fonteDeFosforo(){
         System.out.println("Digite a fonte de fósforo");
@@ -141,64 +150,76 @@ public class CalculaEquilibrioSolo {
 
         return opcao;
     }
-    private double calculoDeQuantidadeFosforoAAplicar(Solo solo, double fosforoAAtingir, double valorDaFonte) {
+
+    private double getFonteValor(String fonteDeFosforo) {
+
+        double fonte = 0.0;
+        switch (fonteDeFosforo) {
+            case "1":
+                fonte = FonteDeFosforo.SUPERFOSFATO_SIMPLES.valor();
+                break;
+            case "2":
+                fonte = FonteDeFosforo.SUPERFOSFATO_TRIPLO.valor();
+                break;
+            case "3":
+                fonte = FonteDeFosforo.MAP.valor();
+                break;
+            case "4":
+                fonte = FonteDeFosforo.DAP.valor();
+                break;
+            case "5":
+                fonte = FonteDeFosforo.YOORIN.valor();
+                break;
+            case "6":
+                fonte = FonteDeFosforo.FOSFATO_ARAD.valor();
+                break;
+            case "7":
+                fonte = FonteDeFosforo.FOSFATO_GAFSA.valor();
+                break;
+            case "8":
+                fonte = FonteDeFosforo.FOSFATO_DAOUI.valor();
+                break;
+            case "9":
+                fonte = FonteDeFosforo.FOSF_PATOS_MINAS.valor();
+                break;
+            case "10":
+                fonte = FonteDeFosforo.ESCORIA_DE_THOMAS.valor();
+                break;
+            case "11":
+                fonte = FonteDeFosforo.ACIDO_FOSFORICO.valor();
+                break;
+            case "12":
+                fonte = FonteDeFosforo.MULTIF_MAGNESIANO.valor();
+                break;
+
+        }
+        return fonte;
+    }
+
+    public double recebeEficienciaDoFosforo() {
         System.out.println("Digite a eficiência do fósforo em porcentagem");
         double eficiencia = (Double.parseDouble(scan.nextLine()));
+
+        return eficiencia;
+    }
+
+    private double calculoDeQuantidadeFosforoAAplicar(double fosforoNoSolo, double fosforoAAtingir, double eficiencia, String fonteDeFosforo) {
+        double valorDaFonte = getFonteValor(fonteDeFosforo);
         eficiencia = eficiencia/100;
-        double primeiroValor = ((((fosforoAAtingir - solo.getFosforo())*2 * 2.29 * 100)/eficiencia)/100)*100;
+        double primeiroValor = ((((fosforoAAtingir - fosforoNoSolo)*2 * 2.29 * 100)/eficiencia)/100)*100;
         double quantidadeAAplicar = primeiroValor/valorDaFonte;
 
         return quantidadeAAplicar;
     }
 
-    private double getFonteValor(String fonteDeFosforo) {
-
-        FonteDeFosforo fonte = null;
-        switch (fonteDeFosforo) {
-            case "1":
-                fonte = FonteDeFosforo.A;
-                break;
-            case "2":
-                fonte = FonteDeFosforo.B;
-                break;
-            case "3":
-                fonte = FonteDeFosforo.C;
-                break;
-            case "4":
-                fonte = FonteDeFosforo.D;
-                break;
-            case "5":
-                fonte = FonteDeFosforo.E;
-                break;
-            case "6":
-                fonte = FonteDeFosforo.F;
-                break;
-            case "7":
-                fonte = FonteDeFosforo.G;
-                break;
-            case "8":
-                fonte = FonteDeFosforo.H;
-                break;
-            case "9":
-                fonte = FonteDeFosforo.I;
-                break;
-            case "10":
-                fonte = FonteDeFosforo.J;
-                break;
-            case "11":
-                fonte = FonteDeFosforo.K;
-                break;
-            case "12":
-                fonte = FonteDeFosforo.L;
-                break;
-
-        }
-        return fonte.getValor();
-    }
-
-    public double calculaCustoDoFosforo(double fosforoAAplicar){
+    public double recebeValorDaToneladaDoFosforo() {
         System.out.println("Digite o valor da Tonelada do Fósforo");
         double preco = (Double.parseDouble(scan.nextLine()));
+
+        return preco;
+    }
+
+    public double calculaCustoDoFosforo(double fosforoAAplicar, double preco){
 
         return (((fosforoAAplicar*2.42)/1000) * preco) / 2.42;
     }
@@ -208,6 +229,7 @@ public class CalculaEquilibrioSolo {
         System.out.println("O custo é de:                              R$ " +custoDoFosforo+" /ha");
     }
 
+/*---------------------*/
     public ArrayList<Double> calculaQuantidadeAplicarPotassio(Solo solo, double ctcCmol){
         System.out.println("Digite a participação do potassio na CTC desejada");
         double potassioDesejado = (Double.parseDouble(scan.nextLine()));

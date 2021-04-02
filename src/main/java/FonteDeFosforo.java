@@ -1,13 +1,65 @@
 public enum FonteDeFosforo {
-    A(18), B(41), C(48), D(45), E(18), F(33), G(29), H(32), I(24), J(18.5), K(52), L(18);
+    SUPERFOSFATO_SIMPLES{
+        public double valor(){
+            return 18.0;
+        }
+    },
+    SUPERFOSFATO_TRIPLO{
+        public double valor(){
+            return 41.0;
+        }
+    },
+    MAP{
+        public double valor(){
+            return 48.0;
+        }
+    },
+    DAP{
+        public double valor(){
+            return 45.0;
+        }
+    },
+    YOORIN{
+        public double valor(){
+            return 18.0;
+        }
+    },
 
-    private double valor;
+    FOSFATO_ARAD{
+        public double valor(){
+            return 33.0;
+        }
+    },
+    FOSFATO_GAFSA{
+        public double valor(){
+            return 29.0;
+        }
+    },
+    FOSFATO_DAOUI{
+        public double valor(){
+            return 32.0;
+        }
+    },
+    FOSF_PATOS_MINAS{
+        public double valor(){
+            return 24.0;
+        }
+    },
+    ESCORIA_DE_THOMAS{
+        public double valor(){
+            return 18.5;
+        }
+    },
+    ACIDO_FOSFORICO{
+        public double valor(){
+            return 52.0;
+        }
+    },
+    MULTIF_MAGNESIANO{
+        public double valor(){
+            return 18.0;
+        }
+    };
 
-    private FonteDeFosforo(double valor){
-        this.valor = valor;
-    }
-
-    public double getValor() {
-        return this.valor;
-    }
+    public abstract double valor();
 }
