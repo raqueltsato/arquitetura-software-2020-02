@@ -230,27 +230,59 @@ public class CalculaEquilibrioSolo {
     }
 
 /*---------------------*/
-    public ArrayList<Double> calculaQuantidadeAplicarPotassio(Solo solo, double ctcCmol){
+public void recebeDadosParaRecuperarPotassio(Solo solo, double ctcCmol) {
+    double potassioNoSolo = solo.getPotassio();
+    double porcentPotassioDesejado = recebeParticipacaodoPotassioDesejada();
+    String fontePotassio = fonteDePotassio();
+    double precoDaToneladaDoPotassio = recebeValorDaToneladaDoPotassio();
+    ArrayList<Double> quantidadeAAplicarPotassioEOutrosNutrientes = new ArrayList<Double>();
+    quantidadeAAplicarPotassioEOutrosNutrientes = calculoDeQuantidadePotassioAAplicar(potassioNoSolo, ctcCmol, porcentPotassioDesejado, fontePotassio);
+
+    double custoDoPotassio = calculaCustoDoPotassio(quantidadeAAplicarPotassioEOutrosNutrientes.get(0), fontePotassio, precoDaToneladaDoPotassio);
+
+    imprimeCorrecaoDoPotassio(quantidadeAAplicarPotassioEOutrosNutrientes, custoDoPotassio);
+
+
+}
+
+    public double recebeParticipacaodoPotassioDesejada() {
         System.out.println("Digite a participação do potassio na CTC desejada");
         double potassioDesejado = (Double.parseDouble(scan.nextLine()));
-        String fontePotassio = fonteDePotassio();
-        double fonte = getFonteValorPotassio(fontePotassio);
-        double quantidadeDoPotassio = calculoPotassio(solo, potassioDesejado, ctcCmol, fonte);
-        ArrayList<Double> nutrientes = new ArrayList<Double>();
-        nutrientes = verificaNutrientes(fontePotassio, quantidadeDoPotassio);
-        double custoDoPotassio = calculaCustoDoPotassio(quantidadeDoPotassio, fontePotassio);
-        nutrientes.add(quantidadeDoPotassio);
-        nutrientes.add(custoDoPotassio);
-
-        return nutrientes;
+        return potassioDesejado;
     }
-    private double calculoPotassio(Solo solo, double potassioDesejado, double ctcCmol, double fonte) {
-        double potassio = solo.getPotassio() * potassioDesejado;
-        double resultado1 = solo.getPotassio()/ctcCmol*100;
-        double primeiroResultadoDoCalculo = ((potassio/resultado1)-solo.getPotassio())*39.1*10*2*1.2*100;
 
-        return primeiroResultadoDoCalculo/0.85/100*100/fonte;
+    private String fonteDePotassio(){
+        System.out.println("Digite a fonte de potássio");
+        System.out.println("1 – Cloreto de Potássio");
+        System.out.println("2 - Sulfato de Potássio");
+        System.out.println("3 – Sulf.Potássio/Mag.");
+        System.out.println("4 – Nitrato de Potássio");
+        String opcao = scan.nextLine();
 
+
+        return opcao;
+    }
+    private double recebeValorDaToneladaDoPotassio(){
+        System.out.println("Digite o preço do potássio:");
+        double precoDoPotassio = (Double.parseDouble(scan.nextLine()));
+
+        return precoDoPotassio;
+    }
+
+    public ArrayList<Double> calculoDeQuantidadePotassioAAplicar(double potassioNoSolo, double ctcCMol, double porcentPotassioDesejado, String fontePotassio){
+        ArrayList<Double> nutrientes = new ArrayList<Double>();
+        ArrayList<Double> potassioENutrientes = new ArrayList<Double>();
+        double valorDaFonte = getFonteValorPotassio(fontePotassio);
+        double potassio = potassioNoSolo * porcentPotassioDesejado;
+        double resultado1 = potassioNoSolo/ctcCMol*100;
+        double primeiroResultadoDoCalculo = ((potassio/resultado1)-potassioNoSolo)*39.1*10*2*1.2*100;
+        double quantidadeAplicarPotassio = primeiroResultadoDoCalculo/0.85/100*100/valorDaFonte;
+        potassioENutrientes.add(quantidadeAplicarPotassio);
+        nutrientes = verificaNutrientes(fontePotassio, quantidadeAplicarPotassio);
+        potassioENutrientes.add(nutrientes.get(0));
+        potassioENutrientes.add(nutrientes.get(1));
+
+        return potassioENutrientes;
     }
 
     private ArrayList<Double> verificaNutrientes (String fontePotassio, double valorDoPotassio) {
@@ -259,12 +291,15 @@ public class CalculaEquilibrioSolo {
         switch (fontePotassio) {
             case "2":
                 enxofreMagnesio.add(valorDoPotassio*0.17);
+                enxofreMagnesio.add(0.0);
                 break;
             case "3":
                 enxofreMagnesio.add(valorDoPotassio*0.22);
                 enxofreMagnesio.add(valorDoPotassio*0.18);
                 break;
             default:
+                enxofreMagnesio.add(0.0);
+                enxofreMagnesio.add(0.0);
                 break;
         }
 
@@ -272,73 +307,45 @@ public class CalculaEquilibrioSolo {
 
     }
 
-    private String fonteDePotassio(){
-        System.out.println("Digite a fonte de potássio");
-        System.out.println("1 – Cloreto de Potássio");
-        System.out.println("2 - Sulfato de Potássio");
-        System.out.println("3 – Sulf.Potássio/Mag.");
-        System.out.println("4 – Outra opção");
-        String opcao = scan.nextLine();
-
-
-        return opcao;
-    }
-
 
     private double getFonteValorPotassio(String fonteDePotassio) {
 
-        FonteDePotassio fonte = null;
+        double fonte = 0.0;
         switch (fonteDePotassio) {
             case "1":
-                fonte = FonteDePotassio.A;
+                fonte = FonteDePotassio.CLORETO_DE_POTASSIO.valor();
                 break;
             case "2":
-                fonte = FonteDePotassio.B;
+                fonte = FonteDePotassio.SULFATO_DE_POTASSIO.valor();
                 break;
             case "3":
-                fonte = FonteDePotassio.C;
+                fonte = FonteDePotassio.SULFATO_DE_POTASSIO_E_MAGNESIO.valor();
                 break;
             case "4":
-                fonte = FonteDePotassio.D;
+                fonte = FonteDePotassio.NITRATO_DE_POTASSIO.valor();
                 break;
 
         }
-        return fonte.getValor();
+        return fonte;
     }
-    public void imprimePotassio(ArrayList<Double> potassio) {
-        int tamanhoArray = potassio.size();
-        switch (tamanhoArray){
-            case 2:
-                System.out.println("Quantidade a aplicar de potassio:   "+ potassio.get(0));
-                System.out.println("Custo R$/ha do potassio:   "+ potassio.get(1));
-                break;
-            case 3:
-                System.out.println("Essa fonte oferece "+ potassio.get(0) + " kg/ha de enxofre\n");
-                System.out.println("Quantidade a aplicar de potassio:   "+potassio.get(1));
-                System.out.println("Custo R$/ha do potassio:   "+ potassio.get(2));
-                break;
-            case 4:
-                System.out.println("Quantidade a aplicar de potassio:   "+potassio.get(2));
-                System.out.println("Custo R$/ha do potassio:   "+ potassio.get(3));
-                System.out.println("Essa fonte oferece "+potassio.get(0)+ " kg/ha de enxofre");
-                System.out.println("Essa fonte oferece "+potassio.get(1)+" kg/ha de magnésio");
-                break;
 
+    public void imprimeCorrecaoDoPotassio(ArrayList<Double> potassioENutrientes, double custoDoPotassio) {
+
+        System.out.println("Quantidade a aplicar de potassio:   "+ potassioENutrientes.get(0));
+        System.out.println("Custo R$/ha do potassio:   "+ custoDoPotassio);
+        if (potassioENutrientes.get(1) != 0.0) {
+            System.out.println("\nEssa fonte oferece "+ potassioENutrientes.get(1) + " kg/ha de enxofre");
         }
+        if (potassioENutrientes.get(2) != 0.0) {
+            System.out.println("Essa fonte oferece "+ potassioENutrientes.get(2) + " kg/ha de magnésio\n");
+        }
+
     }
 
-    public double calculaCustoDoPotassio(double valorDoPotassio, String fonteDoPotassio) {
+    public double calculaCustoDoPotassio(double valorDoPotassio, String fonteDoPotassio, double precoDoPotassio) {
         if (!fonteDoPotassio.equals("4")){
-            return (valorDoPotassio * 2.42) /1000 * recebePrecoDoPotassio()/2.42;
+            return (valorDoPotassio * 2.42) /1000 * precoDoPotassio/2.42;
         }
         return 0.0;
     }
-
-    private double recebePrecoDoPotassio(){
-        System.out.println("Digite o preço do potássio:");
-        double precoDoPotassio = (Double.parseDouble(scan.nextLine()));
-
-        return precoDoPotassio;
-    }
-
 }

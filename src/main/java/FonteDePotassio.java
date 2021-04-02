@@ -1,13 +1,27 @@
 public enum FonteDePotassio {
-    A(58), B(52), C(22), D(44);
 
-    private double valor;
+    CLORETO_DE_POTASSIO {
+        public double valor() {
+            return 58.0;
+        }
+    },
+    SULFATO_DE_POTASSIO {
+        public double valor() {
+            return 52.0;
+        }
 
-    private FonteDePotassio(double valor){
-        this.valor = valor;
-    }
+    },
+    SULFATO_DE_POTASSIO_E_MAGNESIO {
+        public double valor() {
+            return 22.0;
+        }
 
-    public double getValor() {
-        return this.valor;
-    }
+    },
+    NITRATO_DE_POTASSIO {
+        public double valor() {
+            return 44.0;
+        }
+    };
+
+    public abstract double valor();
 }
