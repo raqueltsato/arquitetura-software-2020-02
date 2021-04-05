@@ -5,19 +5,19 @@ public class App {
     public static void main(String[] args) {
         Solo solo = new Solo();
         Solo valorIdealSolo = new Solo();
-        CalculaEquilibrioSolo memoriaDeCalculo = new CalculaEquilibrioSolo();
-        solo = memoriaDeCalculo.recebeDadosDoSolo();
+        CalculaEquilibrioSolo calculaEquilibrioSolo = new CalculaEquilibrioSolo();
+        solo = calculaEquilibrioSolo.recebeDadosDoSolo("1", 8.59, 0.15, 5.76, 1.63, 3.67, 0.0, 5.35 );
         valorIdealSolo = solo.verificaValorIdeal();
-        double scmol = memoriaDeCalculo.calculaSCmol(solo);
-        double ctcCmol = memoriaDeCalculo.calculaCTCCmol(solo);
-        double vPercentual = memoriaDeCalculo.calculaVPercentual(solo);
-        double moPercentual = memoriaDeCalculo.recebeECalculaMOPercentual();
-        double carbono = memoriaDeCalculo.calculaCarbono(moPercentual);
+        double scmol = calculaEquilibrioSolo.calculaSCmol(solo);
+        double ctcCmol = calculaEquilibrioSolo.calculaCTCCmol(solo);
+        double vPercentual = calculaEquilibrioSolo.calculaVPercentual(solo);
+        double moPercentual = calculaEquilibrioSolo.recebeECalculaMOPercentual();
+        double carbono = calculaEquilibrioSolo.calculaCarbono(moPercentual);
 
-        memoriaDeCalculo.imprimeTabela(solo, valorIdealSolo, scmol, ctcCmol, vPercentual, moPercentual, carbono);
+        calculaEquilibrioSolo.imprimeTabela(solo, valorIdealSolo, scmol, ctcCmol, vPercentual, moPercentual, carbono);
 
-        memoriaDeCalculo.recebeDadosParaRecuperacaoDoFosforo(solo);
-        memoriaDeCalculo.recebeDadosParaRecuperarPotassio(solo, ctcCmol);
+        calculaEquilibrioSolo.recebeDadosParaRecuperacaoDoFosforo(solo);
+        calculaEquilibrioSolo.recebeDadosParaRecuperarPotassio(solo, ctcCmol);
 
     }
 

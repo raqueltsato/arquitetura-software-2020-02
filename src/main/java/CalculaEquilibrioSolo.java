@@ -35,39 +35,26 @@ public class CalculaEquilibrioSolo {
         }
     }
 
-    public Solo recebeDadosDoSolo() {
+
+    public Solo recebeDadosDoSolo(String textura, double fosforo, double potassio, double calcio, double magnesio, double enxofre, double aluminio, double hAl) {
 
         Solo solo = new Solo();
-        Solo valorIdealSolo = new Solo();
-        String textura;
-        double inputTemp;
 
-        System.out.println("Escolha a textura de solo, digitando:");
-        System.out.println("1 - para solo argiloso");
-        System.out.println("2 - para solo textura média");
-        textura = scan.nextLine();
         solo.setTextura(textura);
 
-        System.out.println("\nDigite o valor do fósforo");
-        solo.setFosforo(Double.parseDouble(scan.nextLine()));
+        solo.setFosforo(fosforo);
 
-        System.out.println("\nDigite o valor do potássio");
-        solo.setPotassio(Double.parseDouble(scan.nextLine()));
+        solo.setPotassio(potassio);
 
-        System.out.println("\nDigite o valor do cálcio");
-        solo.setCalcio(Double.parseDouble(scan.nextLine()));
+        solo.setCalcio(calcio);
 
-        System.out.println("\nDigite o valor do magnésio");
-        solo.setMagnesio(Double.parseDouble(scan.nextLine()));
+        solo.setMagnesio(magnesio);
 
-        System.out.println("\nDigite o valor do enxofre");
-        solo.setEnxofre(Double.parseDouble(scan.nextLine()));
+        solo.setEnxofre(enxofre);
 
-        System.out.println("\nDigite o valor do alumínio");
-        solo.setAluminio(Double.parseDouble(scan.nextLine()));
+        solo.setAluminio(aluminio);
 
-        System.out.println("\nDigite o valor do H+Al");
-        solo.setHal(Double.parseDouble(scan.nextLine()));
+        solo.setHal(hAl);
 
         return solo;
     }
