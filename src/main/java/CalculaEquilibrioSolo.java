@@ -193,6 +193,9 @@ public class CalculaEquilibrioSolo {
     private double calculoDeQuantidadeFosforoAAplicar(double fosforoNoSolo, double fosforoAAtingir, double eficiencia, String fonteDeFosforo) {
         double valorDaFonte = getFonteValor(fonteDeFosforo);
         eficiencia = eficiencia/100;
+        if (eficiencia == 0.00) {
+            return 0.00;
+        }
         double primeiroValor = ((((fosforoAAtingir - fosforoNoSolo)*2 * 2.29 * 100)/eficiencia)/100)*100;
         double quantidadeAAplicar = primeiroValor/valorDaFonte;
 
