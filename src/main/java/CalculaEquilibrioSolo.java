@@ -20,19 +20,18 @@ public class CalculaEquilibrioSolo {
         if (mo > 0) {
             return mo / 10;
 
-        } else {
-            return 0.0;
         }
-    }
+        return 0.0;
+
+}
 
     public double calculaCarbono(double moPercentual) {
 
         if (moPercentual > 0) {
             return moPercentual / 1.72 * 10;
 
-        } else {
-            return 0.0;
         }
+        return 0.0;
     }
 
 
@@ -321,14 +320,15 @@ public void recebeDadosParaRecuperarPotassio(Solo solo, double ctcCmol) {
 
     public void imprimeCorrecaoDoPotassio(ArrayList<Double> potassioENutrientes, double custoDoPotassio) {
 
-        System.out.println("Quantidade a aplicar de potassio:   "+ potassioENutrientes.get(0));
         System.out.println("Custo R$/ha do potassio:   "+ custoDoPotassio);
-        if (potassioENutrientes.get(1) != 0.0) {
-            System.out.println("\nEssa fonte oferece "+ potassioENutrientes.get(1) + " kg/ha de enxofre");
-        }
-        if (potassioENutrientes.get(2) != 0.0) {
-            System.out.println("Essa fonte oferece "+ potassioENutrientes.get(2) + " kg/ha de magnésio\n");
-        }
+        System.out.println("\nVeja abaixo a quantidade de outros nutrientes que esta fonte também oferece:\n");
+
+        System.out.println("\nQuantidade a aplicar do potássio  ---      Kg/ha de enxofre       ---          kg/ha de magnésio ");
+
+        potassioENutrientes.forEach(quantidadeNutriente -> {
+            System.out.print("          "+ quantidadeNutriente+ "             ");
+        });
+
 
     }
 
