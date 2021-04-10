@@ -16,6 +16,7 @@ public class CalculaEquilibrioSolo {
         return 100 * calculaSCmol(solo)/calculaCTCCmol(solo);
     }
 
+    //Baseado no código disponível em: https://github.com/gabrielcostasilva/sa-soilcorrection/blob/main/src/main/java/edu/utfpr/cp/dacom/sa/soilcorrection/EquilibrioCorrecaoCTC.java
     public double calculaMOPercentual(double mo) {
         if (mo > 0) {
             return mo / 10;
@@ -24,12 +25,11 @@ public class CalculaEquilibrioSolo {
         return 0.0;
 
 }
-
+    //Baseado no código disponível em: https://github.com/gabrielcostasilva/sa-soilcorrection/blob/main/src/main/java/edu/utfpr/cp/dacom/sa/soilcorrection/EquilibrioCorrecaoCTC.java
     public double calculaCarbono(double moPercentual) {
 
         if (moPercentual > 0) {
             return moPercentual / 1.72 * 10;
-
         }
         return 0.0;
     }
