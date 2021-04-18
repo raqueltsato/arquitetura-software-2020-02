@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class CalculaEquilibrioSolo {
 
@@ -60,67 +59,24 @@ public class CalculaEquilibrioSolo {
     public void imprimeTabela(Solo solo, Solo valorIdealSolo, double scmol, double ctcCmol, double vPercentual, double moPercentual, double carbono){
 
         System.out.println("\n------------ TABELA DE VALORES-------------");
-        System.out.println("\n          VALOR COLETADO          VALOR IDEAL");
-        System.out.println("Fosforo:     "+solo.getFosforo()+"                     "+ valorIdealSolo.getFosforo()+"\n");
-        System.out.println("Potássio:    "+solo.getPotassio()+"                     "+ valorIdealSolo.getPotassio()+"\n");
-        System.out.println("Cálcio:      "+solo.getCalcio()+"                     "+ valorIdealSolo.getCalcio()+"\n");
-        System.out.println("Magnésio:    "+solo.getMagnesio()+"                     "+ valorIdealSolo.getMagnesio()+"\n");
-        System.out.println("Enxofre:     "+solo.getEnxofre()+"                     "+ valorIdealSolo.getEnxofre()+"\n");
-        System.out.println("Alumínio:    "+solo.getAluminio()+"                      "+ valorIdealSolo.getAluminio()+"\n");
-        System.out.println("H+Al:        "+solo.getHal()+"                     "+ valorIdealSolo.getHal()+"\n");
-        System.out.println("\n--------------------------------------------\n");
-        System.out.println("SCmol:       "+ scmol);
+        System.out.println("          VALOR COLETADO          VALOR IDEAL");
+        System.out.println("Fosforo:     "+solo.getFosforo()+"                     "+ valorIdealSolo.getFosforo());
+        System.out.println("Potássio:    "+solo.getPotassio()+"                     "+ valorIdealSolo.getPotassio());
+        System.out.println("Cálcio:      "+solo.getCalcio()+"                     "+ valorIdealSolo.getCalcio());
+        System.out.println("Magnésio:    "+solo.getMagnesio()+"                     "+ valorIdealSolo.getMagnesio());
+        System.out.println("Enxofre:     "+solo.getEnxofre()+"                     "+ valorIdealSolo.getEnxofre());
+        System.out.println("Alumínio:    "+solo.getAluminio()+"                      "+ valorIdealSolo.getAluminio());
+        System.out.println("H+Al:        "+solo.getHal()+"                     "+ valorIdealSolo.getHal());
+
+        System.out.println("\nSCmol:       "+ scmol);
         System.out.println("CTCCmol:     "+ ctcCmol);
         System.out.println("V % Atual:   "+ vPercentual);
 
-        System.out.println("\n--------------------------------------------\n");
-        System.out.println("MO %:        "+  moPercentual);
-        System.out.println("Carbono %:        "+  carbono);
+        System.out.println("\nMO %:        "+  moPercentual);
+        System.out.println("Carbono %:        "+  carbono+"\n");
 
     }
 
-    public void recebeDadosParaRecuperacaoDoFosforo(Solo solo, double fosforoAAtingir, double eficienciaDoFosforo, double fonteDoFosforo, double precodaToneladaDoFosforo) {
-        double quantidadeAplicar = calculoDeQuantidadeFosforoAAplicar(solo.getFosforo(), fosforoAAtingir, eficienciaDoFosforo, fonteDoFosforo);
-        double custoDoFosforo = calculaCustoDoFosforo(quantidadeAplicar, precodaToneladaDoFosforo);
-        imprimeCorrecaoDoFosforo(quantidadeAplicar, custoDoFosforo);
-
-    }
-
-    private double calculoDeQuantidadeFosforoAAplicar(double fosforoNoSolo, double fosforoAAtingir, double eficiencia, double fonteDeFosforo) {
-
-        eficiencia = eficiencia/100;
-        if (eficiencia == 0.00) {
-            return 0.00;
-        }
-        double necessidadeFosforoAAdicionar = necessidadeFosforoAAdicionar(fosforoAAtingir, fosforoNoSolo);
-        double p2O5 = transformaNecessidadeEmP2O5(necessidadeFosforoAAdicionar);
-        double necessidadeDeP2O5 = necessidadeP2O5(p2O5, eficiencia);
-        double quantidadeAAplicar = necessidadeDeP2O5/fonteDeFosforo;
-        return quantidadeAAplicar;
-    }
-
-    private double necessidadeFosforoAAdicionar(double fosforoAAtingir, double fosforoNoSolo) {
-        return fosforoAAtingir - fosforoNoSolo;
-    }
-    private double transformaNecessidadeEmP2O5 (double necessidadeFosforo) {
-        return necessidadeFosforo*2*2.29;
-    }
-
-    private double necessidadeP2O5 (double p2O5, double eficiencia) {
-        return p2O5/eficiencia*100;
-    }
-
-    public double calculaCustoDoFosforo(double fosforoAAplicar, double preco){
-
-        return (fosforoAAplicar/1000) * preco;
-    }
-
-    public void imprimeCorrecaoDoFosforo(double fosforoAAplicar, double custoDoFosforo){
-        System.out.println("Quantidade de Fosfato a aplicar:           "+fosforoAAplicar+ " kg/hectare");
-        System.out.println("O custo é de:                              R$ " +custoDoFosforo+" /ha");
-    }
-
-    /*---------------------*/
     public void recebeDadosParaRecuperarPotassio(Solo solo, double ctcCmol, double participacaoDoPotassioDesejadaNaCTC, double fonteDePotassio, double precoDaToneladaDoPotassio) {
         double potassioNoSolo = solo.getPotassio();
 
@@ -131,7 +87,6 @@ public class CalculaEquilibrioSolo {
 
         imprimeCorrecaoDoPotassio(quantidadeAAplicarPotassioEOutrosNutrientes, custoDoPotassio);
     }
-
 
 
     public ArrayList<Double> calculoDeQuantidadePotassioAAplicarEOutrosNutrientes(double potassioNoSolo, double ctcCMol, double porcentPotassioDesejado, double fonteDePotassio){

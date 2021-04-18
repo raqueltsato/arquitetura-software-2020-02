@@ -1,4 +1,11 @@
-import java.util.ArrayList;
+import AcoesAposCalcularFosforoAAplicarECusto.FosforoForneceCalcio;
+import AcoesAposCalcularFosforoAAplicarECusto.FosforoForneceEnxofre;
+import AcoesAposCalcularFosforoAAplicarECusto.FosforoForneceMagnesio;
+import AcoesAposCalcularFosforoAAplicarECusto.FosforoForneceNitrogenio;
+import CorrecaoFosforo.CalculaFosforoAAplicarECusto;
+import CorrecaoFosforo.FonteDeFosforo;
+
+import java.util.Arrays;
 
 public class App {
 
@@ -19,8 +26,10 @@ public class App {
         double fosforoAAtingir = 12;
         double eficienciaDoFosforo = 70;
         double precoDaToneladaDoFosforo = 1260.00;
-        double fonteDeFosforo = FonteDeFosforo.SUPERFOSFATO_SIMPLES.valor();
-        calculaEquilibrioSolo.recebeDadosParaRecuperacaoDoFosforo(solo, fosforoAAtingir, eficienciaDoFosforo, fonteDeFosforo, precoDaToneladaDoFosforo);
+        CalculaFosforoAAplicarECusto calculaFosforoAAplicarECusto = new CalculaFosforoAAplicarECusto(Arrays.asList(new FosforoForneceEnxofre(), new FosforoForneceMagnesio(),
+                                                                                                                    new FosforoForneceCalcio(), new FosforoForneceNitrogenio()));
+        calculaFosforoAAplicarECusto.calcularFosforo(solo.getFosforo(), fosforoAAtingir, eficienciaDoFosforo, FonteDeFosforo.SUPERFOSFATO_SIMPLES, precoDaToneladaDoFosforo);
+
 
         double participacaoDoPotassioDesejadaNaCTC = 3.0;
         double fonteDePotassio = FonteDePotassio.CLORETO_DE_POTASSIO.valor();
