@@ -10,14 +10,12 @@ public enum FonteDePotassio {
             //potassio, enxofre, magnesio
             ArrayList<Double> nutrientes = new ArrayList(Arrays.asList(new Double[]{58.0, 0.0, 0.0}));
             return nutrientes;
-            //return 58.0;
         }
     },
     SULFATO_DE_POTASSIO {
         public ArrayList<Double> valor() {
             ArrayList<Double> nutrientes = new ArrayList(Arrays.asList(new Double[]{52.0, 0.17, 0.0}));
             return nutrientes;
-            //return 52.0;
         }
 
     },
@@ -25,7 +23,6 @@ public enum FonteDePotassio {
         public ArrayList<Double> valor() {
             ArrayList<Double> nutrientes = new ArrayList(Arrays.asList(new Double[]{22.0, 0.22, 0.18}));
             return nutrientes;
-            //return 22.0;
         }
 
     },
@@ -33,7 +30,6 @@ public enum FonteDePotassio {
         public ArrayList<Double> valor() {
             ArrayList<Double> nutrientes = new ArrayList(Arrays.asList(new Double[]{44.0, 0.0, 0.0}));
             return nutrientes;
-            //return 44.0;
         }
     };
 
