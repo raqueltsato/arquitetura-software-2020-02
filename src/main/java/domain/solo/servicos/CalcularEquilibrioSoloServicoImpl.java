@@ -1,6 +1,8 @@
-import java.util.ArrayList;
+package domain.solo.servicos;
 
-public class CalculaEquilibrioSolo {
+import domain.solo.entidade.Solo;
+
+public class CalcularEquilibrioSoloServicoImpl {
 
     public double calculaSCmol(Solo solo) {
         return solo.getPotassio()+solo.getCalcio()+solo.getMagnesio();
@@ -32,31 +34,12 @@ public class CalculaEquilibrioSolo {
     }
 
 
-    public Solo recebeDadosDoSolo(String textura, double fosforo, double potassio, double calcio, double magnesio, double enxofre, double aluminio, double hAl) {
-
-        Solo solo = new Solo();
-
-        solo.setTextura(textura);
-
-        solo.setFosforo(fosforo);
-
-        solo.setPotassio(potassio);
-
-        solo.setCalcio(calcio);
-
-        solo.setMagnesio(magnesio);
-
-        solo.setEnxofre(enxofre);
-
-        solo.setAluminio(aluminio);
-
-        solo.setHal(hAl);
-
-        return solo;
-    }
-
-
-    public void imprimeTabela(Solo solo, Solo valorIdealSolo, double scmol, double ctcCmol, double vPercentual, double moPercentual, double carbono){
+    public void imprimeTabela(Solo solo, Solo valorIdealSolo){
+        double scmol = this.calculaSCmol(solo);
+        double ctcCmol = this.calculaCTCCmol(solo);
+        double vPercentual = this.calculaVPercentual(solo);
+        double moPercentual = this.calculaMOPercentual(30.7);
+        double carbono = this.calculaCarbono(moPercentual);
 
         System.out.println("\n------------ TABELA DE VALORES-------------");
         System.out.println("          VALOR COLETADO          VALOR IDEAL");

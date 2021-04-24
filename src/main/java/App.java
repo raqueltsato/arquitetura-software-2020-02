@@ -8,24 +8,23 @@ import CorrecaoFosforo.CalculaFosforoAAplicarECusto;
 import CorrecaoFosforo.FonteDeFosforo;
 import CorrecaoPotassio.CalculaPotassioAAplicarECusto;
 import CorrecaoPotassio.FonteDePotassio;
+import domain.solo.entidade.Solo;
+import domain.solo.entidade.SoloTextura;
+import domain.solo.servicos.CalcularEquilibrioSoloServicoImpl;
+import domain.solo.servicos.SoloVerificarValorIdealServicoImpl;
 
 import java.util.Arrays;
 
 public class App {
 
     public static void main(String[] args) {
-        Solo solo = new Solo();
-        Solo valorIdealSolo = new Solo();
-        CalculaEquilibrioSolo calculaEquilibrioSolo = new CalculaEquilibrioSolo();
-        solo = calculaEquilibrioSolo.recebeDadosDoSolo("1", 8.59, 0.15, 5.76, 1.63, 3.67, 0.0, 5.35 );
-        valorIdealSolo = solo.verificaValorIdeal();
-        double scmol = calculaEquilibrioSolo.calculaSCmol(solo);
-        double ctcCmol = calculaEquilibrioSolo.calculaCTCCmol(solo);
-        double vPercentual = calculaEquilibrioSolo.calculaVPercentual(solo);
-        double moPercentual = calculaEquilibrioSolo.calculaMOPercentual(30.7);
-        double carbono = calculaEquilibrioSolo.calculaCarbono(moPercentual);
+        Solo solo = new Solo(SoloTextura.CODIG0_ARGILOSO, 8.59, 0.15, 5.76, 1.63, 3.67, 0.0, 5.35 );
 
-        calculaEquilibrioSolo.imprimeTabela(solo, valorIdealSolo, scmol, ctcCmol, vPercentual, moPercentual, carbono);
+        Solo valorIdealSolo = SoloVerificarValorIdealServicoImpl.verificarValorIdeal(solo.getTextura());
+
+        CalcularEquilibrioSoloServicoImpl calculaEquilibrioSolo = new CalcularEquilibrioSoloServicoImpl();
+
+        calculaEquilibrioSolo.imprimeTabela(solo, valorIdealSolo);
 
         double fosforoAAtingir = 12;
         double eficienciaDoFosforo = 70;
@@ -37,7 +36,7 @@ public class App {
         double participacaoDoPotassioDesejadaNaCTC = 3.0;
         double precoDaToneladaDoPotassio = 2500.00;
         CalculaPotassioAAplicarECusto calculaPotassioAAplicarECusto = new CalculaPotassioAAplicarECusto(Arrays.asList(new PotassioForneceEnxofre(), new PotassioForneceMagnesio()));
-        calculaPotassioAAplicarECusto.calcularPotassio(solo.getPotassio(), ctcCmol, participacaoDoPotassioDesejadaNaCTC, FonteDePotassio.CLORETO_DE_POTASSIO, precoDaToneladaDoPotassio);
+        calculaPotassioAAplicarECusto.calcularPotassio(solo.getPotassio(), calculaEquilibrioSolo.calculaCTCCmol(solo), participacaoDoPotassioDesejadaNaCTC, FonteDePotassio.CLORETO_DE_POTASSIO, precoDaToneladaDoPotassio);
 
     }
 
