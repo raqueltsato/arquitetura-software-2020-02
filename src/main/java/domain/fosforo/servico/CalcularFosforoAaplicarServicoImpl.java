@@ -2,7 +2,7 @@ package domain.fosforo.servico;
 
 import domain.fosforo.entidade.NutrientesFosforo;
 import domain.fosforo.servico.acoesAposCalcularFosforoAAplicar.*;
-import CorrecaoFosforo.FonteDeFosforo;
+import domain.fosforo.entidade.FonteDeFosforo;
 
 import java.util.Arrays;
 import java.util.List;

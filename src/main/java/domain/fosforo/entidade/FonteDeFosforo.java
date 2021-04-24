@@ -1,4 +1,4 @@
-package CorrecaoFosforo;
+package domain.fosforo.entidade;
 
 import java.util.ArrayList;
 import java.util.Arrays;

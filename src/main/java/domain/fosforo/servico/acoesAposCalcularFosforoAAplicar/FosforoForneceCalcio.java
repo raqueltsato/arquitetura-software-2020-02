@@ -1,6 +1,6 @@
 package domain.fosforo.servico.acoesAposCalcularFosforoAAplicar;
 
-import CorrecaoFosforo.FonteDeFosforo;
+import domain.fosforo.entidade.FonteDeFosforo;
 import domain.fosforo.entidade.NutrientesFosforo;
 
 public class FosforoForneceCalcio implements AcaoAposCalcularFosforoAAplicar {

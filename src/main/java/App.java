@@ -2,7 +2,7 @@ import AcoesAposCalcularPotassioAAplicarECusto.PotassioForneceEnxofre;
 import AcoesAposCalcularPotassioAAplicarECusto.PotassioForneceMagnesio;
 import domain.fosforo.servico.CalcularCustoFosforoServicoImpl;
 import domain.fosforo.servico.CalcularFosforoAaplicarServicoImpl;
-import CorrecaoFosforo.FonteDeFosforo;
+import domain.fosforo.entidade.FonteDeFosforo;
 import CorrecaoPotassio.CalculaPotassioAAplicarECusto;
 import CorrecaoPotassio.FonteDePotassio;
 import domain.solo.entidade.Solo;
