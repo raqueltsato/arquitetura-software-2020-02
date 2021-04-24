@@ -1,10 +1,7 @@
-import AcoesAposCalcularFosforoAAplicarECusto.FosforoForneceCalcio;
-import AcoesAposCalcularFosforoAAplicarECusto.FosforoForneceEnxofre;
-import AcoesAposCalcularFosforoAAplicarECusto.FosforoForneceMagnesio;
-import AcoesAposCalcularFosforoAAplicarECusto.FosforoForneceNitrogenio;
 import AcoesAposCalcularPotassioAAplicarECusto.PotassioForneceEnxofre;
 import AcoesAposCalcularPotassioAAplicarECusto.PotassioForneceMagnesio;
-import CorrecaoFosforo.CalculaFosforoAAplicarECusto;
+import domain.fosforo.servico.CalcularCustoFosforoServicoImpl;
+import domain.fosforo.servico.CalcularFosforoAaplicarServicoImpl;
 import CorrecaoFosforo.FonteDeFosforo;
 import CorrecaoPotassio.CalculaPotassioAAplicarECusto;
 import CorrecaoPotassio.FonteDePotassio;
@@ -26,12 +23,12 @@ public class App {
 
         calculaEquilibrioSolo.imprimeTabela(solo, valorIdealSolo);
 
-        double fosforoAAtingir = 12;
-        double eficienciaDoFosforo = 70;
-        double precoDaToneladaDoFosforo = 1260.00;
-        CalculaFosforoAAplicarECusto calculaFosforoAAplicarECusto = new CalculaFosforoAAplicarECusto(Arrays.asList(new FosforoForneceEnxofre(), new FosforoForneceMagnesio(),
-                                                                                                                    new FosforoForneceCalcio(), new FosforoForneceNitrogenio()));
-        calculaFosforoAAplicarECusto.calcularFosforo(solo.getFosforo(), fosforoAAtingir, eficienciaDoFosforo, FonteDeFosforo.SUPERFOSFATO_SIMPLES, precoDaToneladaDoFosforo);
+        CalcularFosforoAaplicarServicoImpl calculaFosforoAAplicar = new CalcularFosforoAaplicarServicoImpl();
+        calculaFosforoAAplicar.calcularFosforo(solo.getFosforo(), FonteDeFosforo.SUPERFOSFATO_SIMPLES);
+
+        CalcularCustoFosforoServicoImpl calcularCustoFosforoServico = new CalcularCustoFosforoServicoImpl();
+
+        calcularCustoFosforoServico.calculaCustoDoFosforo(calculaFosforoAAplicar.getQuantidadeAplicar());
 
         double participacaoDoPotassioDesejadaNaCTC = 3.0;
         double precoDaToneladaDoPotassio = 2500.00;
