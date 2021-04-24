@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CalcularFosforoAaplicarServicoImpl {
 
-    private List<AcaoAposCalcularFosforoAAplicar> acaoAposCalcularFosforoAAplicarECusto = Arrays.asList(new FosforoForneceEnxofre(), new FosforoForneceMagnesio(),
+    private List<AcaoAposCalcularFosforoAAplicar> acaoAposCalcularFosforoAAplicar = Arrays.asList(new FosforoForneceEnxofre(), new FosforoForneceMagnesio(),
             new FosforoForneceCalcio(), new FosforoForneceNitrogenio());
     double fosforoAAtingir = 12;
     double eficienciaDoFosforo = 70;
@@ -31,7 +31,7 @@ public class CalcularFosforoAaplicarServicoImpl {
         quantidadeAplicar = calculoDeQuantidadeFosforoAAplicar(fosforoNoSolo, fosforoAAtingir, eficienciaDoFosforo, fonteDeFosforo);
         imprimeCorrecaoDoFosforo(quantidadeAplicar);
 
-        this.acaoAposCalcularFosforoAAplicarECusto.forEach(acao ->
+        this.acaoAposCalcularFosforoAAplicar.forEach(acao ->
                 nutrientesFosforo = acao.executarAcao(fonteDoFosforo, quantidadeAplicar, nutrientesFosforo));
     }
 

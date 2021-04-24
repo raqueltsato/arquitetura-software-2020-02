@@ -1,4 +1,4 @@
-package CorrecaoPotassio;
+package domain.potassio.entidade;
 
 import java.util.ArrayList;
 import java.util.Arrays;

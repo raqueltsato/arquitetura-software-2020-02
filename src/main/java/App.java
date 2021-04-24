@@ -1,16 +1,13 @@
-import AcoesAposCalcularPotassioAAplicarECusto.PotassioForneceEnxofre;
-import AcoesAposCalcularPotassioAAplicarECusto.PotassioForneceMagnesio;
 import domain.fosforo.servico.CalcularCustoFosforoServicoImpl;
 import domain.fosforo.servico.CalcularFosforoAaplicarServicoImpl;
 import domain.fosforo.entidade.FonteDeFosforo;
-import CorrecaoPotassio.CalculaPotassioAAplicarECusto;
-import CorrecaoPotassio.FonteDePotassio;
+import domain.potassio.servico.CalcularCustoPotassioServicoImpl;
+import domain.potassio.servico.CalcularPotassioAAplicarServicoImpl;
+import domain.potassio.entidade.FonteDePotassio;
 import domain.solo.entidade.Solo;
 import domain.solo.entidade.SoloTextura;
 import domain.solo.servicos.CalcularEquilibrioSoloServicoImpl;
 import domain.solo.servicos.SoloVerificarValorIdealServicoImpl;
-
-import java.util.Arrays;
 
 public class App {
 
@@ -27,13 +24,13 @@ public class App {
         calculaFosforoAAplicar.calcularFosforo(solo.getFosforo(), FonteDeFosforo.SUPERFOSFATO_SIMPLES);
 
         CalcularCustoFosforoServicoImpl calcularCustoFosforoServico = new CalcularCustoFosforoServicoImpl();
-
         calcularCustoFosforoServico.calculaCustoDoFosforo(calculaFosforoAAplicar.getQuantidadeAplicar());
 
-        double participacaoDoPotassioDesejadaNaCTC = 3.0;
-        double precoDaToneladaDoPotassio = 2500.00;
-        CalculaPotassioAAplicarECusto calculaPotassioAAplicarECusto = new CalculaPotassioAAplicarECusto(Arrays.asList(new PotassioForneceEnxofre(), new PotassioForneceMagnesio()));
-        calculaPotassioAAplicarECusto.calcularPotassio(solo.getPotassio(), calculaEquilibrioSolo.calculaCTCCmol(solo), participacaoDoPotassioDesejadaNaCTC, FonteDePotassio.CLORETO_DE_POTASSIO, precoDaToneladaDoPotassio);
+        CalcularPotassioAAplicarServicoImpl calculaPotassioAAplicar = new CalcularPotassioAAplicarServicoImpl();
+        calculaPotassioAAplicar.calcularPotassio(solo.getPotassio(), calculaEquilibrioSolo.calculaCTCCmol(solo), FonteDePotassio.SULFATO_DE_POTASSIO_E_MAGNESIO);
+
+        CalcularCustoPotassioServicoImpl calcularCustoPotassioServico = new CalcularCustoPotassioServicoImpl();
+        calcularCustoPotassioServico.calculaCustoDoPotassio(calculaPotassioAAplicar.getQuantidadeAplicar());
 
     }
 
