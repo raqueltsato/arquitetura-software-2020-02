@@ -6,11 +6,11 @@ public class CalcularCustoPotassioServicoImpl {
 
     public double calculaCustoDoPotassio(double valorDoPotassio) {
         double custoDoPotassio = valorDoPotassio /1000 * precoDaToneladaDoPotassio;
-        imprimeCorrecaoDoPotassio(custoDoPotassio);
+        //imprimeCorrecaoDoPotassio(custoDoPotassio);
         return custoDoPotassio;
 
     }
-    public void imprimeCorrecaoDoPotassio(double custoDoPotassio) {
+    /*public void imprimeCorrecaoDoPotassio(double custoDoPotassio) {
         System.out.println("Custo do potassio é de: " +custoDoPotassio);
-    }
+    }*/
 }

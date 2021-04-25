@@ -7,7 +7,7 @@ public class PotassioForneceMagnesio implements AcaoAposCalcularPotassioAAplicar
 
     public NutrientesPotassio executarAcao(FonteDePotassio fonteDePotassio, double quantidadeAAplicar, NutrientesPotassio nutrientes){
        nutrientes.setMagnesio(quantidadeAAplicar * fonteDePotassio.valor().get(2));
-       System.out.println("Fornece " + nutrientes.getMagnesio()+" de magnesio");
+       //System.out.println("Fornece " + nutrientes.getMagnesio()+" de magnesio");
        return nutrientes;
     }
 }

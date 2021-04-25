@@ -18,7 +18,7 @@ public class App {
 
         CalcularEquilibrioSoloServicoImpl calculaEquilibrioSolo = new CalcularEquilibrioSoloServicoImpl();
 
-        calculaEquilibrioSolo.imprimeTabela(solo, valorIdealSolo);
+        //calculaEquilibrioSolo.imprimeTabela(solo, valorIdealSolo);
 
         CalcularFosforoAaplicarServicoImpl calculaFosforoAAplicar = new CalcularFosforoAaplicarServicoImpl();
         calculaFosforoAAplicar.calcularFosforo(solo.getFosforo(), FonteDeFosforo.SUPERFOSFATO_SIMPLES);

@@ -28,8 +28,7 @@ public class CalcularPotassioAAplicarServicoImpl {
     public void calcularPotassio (double potassioNoSolo, double ctcCmol, FonteDePotassio fonteDoPotassio){
         double fonteDePotassio = fonteDoPotassio.valor().get(0);
         quantidadeAAplicar = calculoDeQuantidadePotassioAAplicar(potassioNoSolo, ctcCmol, participacaoDoPotassioDesejadaNaCTC, fonteDePotassio);
-        //double custoDoPotassio = calculaCustoDoPotassio(quantidadeAAplicar, precoDaToneladaDoPotassio);
-        imprimeCorrecaoDoPotassio(quantidadeAAplicar);
+        //imprimeCorrecaoDoPotassio(quantidadeAAplicar);
 
         this.acaoAposCalcularPotassioAAplicar.forEach(acao ->
                 nutrientesPotassio = acao.executarAcao(fonteDoPotassio, quantidadeAAplicar, nutrientesPotassio));
@@ -57,8 +56,8 @@ public class CalcularPotassioAAplicarServicoImpl {
     }
 
 
-    public void imprimeCorrecaoDoPotassio(double quantidadeAplicar) {
+    /*public void imprimeCorrecaoDoPotassio(double quantidadeAplicar) {
         System.out.println("\nQuantidade de Potassio a aplicar: "+quantidadeAplicar+" kg/hectare");
-    }
+    }*/
 
 }

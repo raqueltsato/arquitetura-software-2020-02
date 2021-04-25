@@ -29,7 +29,7 @@ public class CalcularFosforoAaplicarServicoImpl {
 
         double fonteDeFosforo = fonteDoFosforo.valor().get(0);
         quantidadeAplicar = calculoDeQuantidadeFosforoAAplicar(fosforoNoSolo, fosforoAAtingir, eficienciaDoFosforo, fonteDeFosforo);
-        imprimeCorrecaoDoFosforo(quantidadeAplicar);
+        //imprimeCorrecaoDoFosforo(quantidadeAplicar);
 
         this.acaoAposCalcularFosforoAAplicar.forEach(acao ->
                 nutrientesFosforo = acao.executarAcao(fonteDoFosforo, quantidadeAplicar, nutrientesFosforo));
@@ -58,7 +58,7 @@ public class CalcularFosforoAaplicarServicoImpl {
         return p2O5/eficiencia*100;
     }
 
-    public void imprimeCorrecaoDoFosforo(double fosforoAAplicar) {
+    /*public void imprimeCorrecaoDoFosforo(double fosforoAAplicar) {
         System.out.println("Quantidade de Fosforo a aplicar: " + fosforoAAplicar + " kg/hectare");
-    }
+    }*/
 }

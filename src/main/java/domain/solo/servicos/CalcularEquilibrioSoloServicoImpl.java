@@ -34,7 +34,7 @@ public class CalcularEquilibrioSoloServicoImpl {
     }
 
 
-    public void imprimeTabela(Solo solo, Solo valorIdealSolo){
+    /*public void imprimeTabela(Solo solo, Solo valorIdealSolo){
         double scmol = this.calculaSCmol(solo);
         double ctcCmol = this.calculaCTCCmol(solo);
         double vPercentual = this.calculaVPercentual(solo);
@@ -58,6 +58,6 @@ public class CalcularEquilibrioSoloServicoImpl {
         System.out.println("\nMO %:        "+  moPercentual);
         System.out.println("Carbono %:        "+  carbono+"\n");
 
-    }
+    }*/
 
 }
